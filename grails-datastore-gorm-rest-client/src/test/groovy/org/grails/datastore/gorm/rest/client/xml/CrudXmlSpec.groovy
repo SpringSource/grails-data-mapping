@@ -21,6 +21,8 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book/1"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.GET))
                     .andExpect(header(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML.toString()))
                     .andRespond(withSuccess('<book id="1"><title>The Stand</title><pages>200</pages></book>', MediaType.APPLICATION_XML))
@@ -41,6 +43,8 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book/1"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.GET))
                     .andExpect(header(HttpHeaders.ACCEPT, MediaType.APPLICATION_XML.toString()))
                     .andRespond(withSuccess('<book id="1"><title>The Stand</title><pages>200</pages></book>', MediaType.APPLICATION_XML))
@@ -62,14 +66,18 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.POST))
-                    .andExpect(content().contentType(MediaType.APPLICATION_XML))
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
                     .andExpect(content().string('<?xml version="1.0" encoding="UTF-8"?><book><pages /><title>The Stand</title></book>'))
                     .andRespond(withSuccess('<book id="1"><title>The Stand</title><pages>200</pages></book>', MediaType.APPLICATION_XML))
     
             mockServer.expect(requestTo("http://localhost:8080/book/2"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.PUT))
-                    .andExpect(content().contentType(MediaType.APPLICATION_XML))
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
                     .andExpect(content().string('<?xml version="1.0" encoding="UTF-8"?><book id="2"><pages /><title>The Shining</title></book>'))
                     .andRespond(withSuccess('<?xml version="1.0" encoding="UTF-8"?><book id="2"><pages /><title>The Shining</title></book>', MediaType.APPLICATION_XML))
     
@@ -96,8 +104,10 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.POST))
-                    .andExpect(content().contentType(MediaType.APPLICATION_XML))
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
                     .andExpect(content().string('<?xml version="1.0" encoding="UTF-8"?><book><pages /><title>The Stand</title></book>'))
                     .andRespond(withSuccess('<?xml version="1.0" encoding="UTF-8"?><book id="1"><pages /><title>The Stand</title></book>', MediaType.APPLICATION_XML))
 
@@ -115,8 +125,10 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.POST))
-                    .andExpect(content().contentType(MediaType.APPLICATION_XML))
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
                     .andExpect(content().string('<?xml version="1.0" encoding="UTF-8"?><book id="1"><pages /><title>The Stand</title></book>'))
                     .andRespond(withSuccess('<?xml version="1.0" encoding="UTF-8"?><book id="1"><pages /><title>The Stand</title></book>', MediaType.APPLICATION_XML))
 
@@ -135,8 +147,10 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book/1"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.PUT))
-                    .andExpect(content().contentType(MediaType.APPLICATION_XML))
+                    .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_XML))
                     .andExpect(content().string('<?xml version="1.0" encoding="UTF-8"?><book id="1"><pages /><title>The Stand</title></book>'))
                     .andRespond(withSuccess('<?xml version="1.0" encoding="UTF-8"?><book id="1"><pages /><title>The Stand</title></book>', MediaType.APPLICATION_XML))
 
@@ -155,6 +169,8 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book/1"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.DELETE))
                     .andRespond(withStatus(HttpStatus.NO_CONTENT))
 
@@ -173,6 +189,8 @@ class CrudXmlSpec extends RestClientDatastoreSpec{
             RestTemplate rt = Book.getRestBuilder().restTemplate
             final mockServer = MockRestServiceServer.createServer(rt)
             mockServer.expect(requestTo("http://localhost:8080/book/1"))
+                    .andExpect(header("user", "apiUser"))
+                    .andExpect(header("pass", "apiPass"))
                     .andExpect(method(HttpMethod.DELETE))
                     .andRespond(withStatus(HttpStatus.NO_CONTENT))
 
@@ -206,6 +224,7 @@ class Book {
     static mapping = {
         contentType "application/xml"
         accept "application/xml"
+        headers user: "apiUser", pass: "apiPass"
 //        async false
     }
 }
